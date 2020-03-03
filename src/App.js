@@ -1,34 +1,32 @@
 import React from 'react';
-
-
-/*function App() {
-  return (
-    <div>
-      <span className="red-text">Коля - еблан</span>
-    </div>
-  );
-}*/
+import './style.css';
 
 class App extends React.Component {
 
-  constructor() {
-    super();
+  /*constructor(props) {
+    super(props);
     this.state = {
       count: 0
     }
+  }*/
+
+  state = {
+    count: 0
   }
 
-
-  up() {
+  up = () => { 
     this.setState({count: this.state.count + 1});
   }
 
   render() {
+    
+    const count = this.state.count;
+
     return (
-      <div>
-        <span className="counter">{'count ' + this.state.count}</span>
-        <button onClick={() => this.up()}>Add +1</button>
-      </div>
+      <>
+        <span className="counter">count {count}</span>
+        <button onClick={this.up}>Add +1</button>
+      </>
     );
 
   }
