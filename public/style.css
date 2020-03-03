@@ -1,0 +1,30 @@
+#inputTask {
+    width: 250px;
+}
+
+#addButton {
+    color: green;
+    width: 100px;
+    cursor: pointer;
+}
+
+#tableTasks {
+    margin: 10px 0px;
+    border-collapse: collapse;
+}
+
+.td {
+    border: 1px solid;
+    border-width: 1px;
+    width: 245px;
+    cursor: pointer;
+}
+
+.red-text {
+    color: red;
+}
+
+
+.counter {
+    margin: 5px;
+}
