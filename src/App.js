@@ -1,14 +1,30 @@
 import React from 'react';
 import './style.css';
 
-class App extends React.Component {
+class Counter extends React.Component {
 
-  /*constructor(props) {
-    super(props);
-    this.state = {
-      count: 0
-    }
-  }*/
+  render() {
+    
+    const count = this.props.count;
+
+    return (
+        <span className="counter">count {count}</span>
+    );
+
+  }
+}
+
+class Button extends React.Component{
+
+  render() {
+    return (
+      <button onClick={this.props.onClick}>Add +1</button>
+    )
+  }
+
+}
+
+class App extends React.Component {
 
   state = {
     count: 0
@@ -24,8 +40,8 @@ class App extends React.Component {
 
     return (
       <>
-        <span className="counter">count {count}</span>
-        <button onClick={this.up}>Add +1</button>
+        <Counter count={count}/>
+        <Button onClick={this.up}/>
       </>
     );
 
