@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function CountNotification(props) {
-
-    const count = props.count;
+const CountNotification = ({count}) => {
 
     return (
         <span className="counter">count {count}</span>

@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function AddButton(props){
+const AddButton = ({onClick}) => {
 
   return (
-      <button onClick={props.onClick}>Add +1</button>
+      <button onClick={onClick}>Add +1</button>
     )
 
 }
