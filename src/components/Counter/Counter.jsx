@@ -1,4 +1,6 @@
 import React from 'react';
+import CountNotification from './../CountNotification';
+import AddButton from './../AddButton';
 
 class Counter extends React.PureComponent  {
 
@@ -13,9 +15,7 @@ class Counter extends React.PureComponent  {
   render() {
     
     const count = this.state.count;
-    const CountNotification = this.props.CountNotification;
-    const AddButton = this.props.AddButton;
-
+    
     return (
       <>
         <CountNotification count={count}/>

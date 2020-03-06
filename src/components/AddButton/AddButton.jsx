@@ -1,13 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class AddButton extends React.PureComponent{
+function AddButton(props){
 
-  render() {
-    return (
-      <button onClick={this.props.onClick}>Add +1</button>
+  return (
+      <button onClick={props.onClick}>Add +1</button>
     )
-  }
 
 }
 

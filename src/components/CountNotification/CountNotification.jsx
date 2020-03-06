@@ -1,17 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class CountNotification extends React.PureComponent {
+function CountNotification(props) {
 
-    render() {
+    const count = props.count;
 
-        const count = this.props.count;
-
-        return (
-            <span className="counter">count {count}</span>
-        );
-
-    }
+    return (
+        <span className="counter">count {count}</span>
+    );
+    
 }
 
 CountNotification.propTypes = {
