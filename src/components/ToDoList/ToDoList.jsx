@@ -1,28 +1,26 @@
 import React from 'react';
-import InputTask from './../InputTask';
-import AddButton from './../AddButton';
-import TasksTable from './../TasksTable';
+import TasksTable from './TasksTable';
 
 class ToDoList extends React.PureComponent  {
 
   state = {
-    /*currentTask: "",*/
+    inputTaskValue: '',
     tasks: []
   }
 
-  /*setCurrentTask = e => { 
-    this.setState({currentTask: this.state.currentTask = e.target.value});
-  }*/
+  setTaskValue = e => { 
+    this.setState({inputTaskValue: e.target.value});
+  }
 
   addTask = () => {
 
-    const inputTask = document.getElementById('inputTask');
+    const {inputTaskValue} = this.state;
 
-    if (inputTask.value !== '') {
-      this.setState({tasks: [...this.state.tasks, inputTask.value]});
+    if (inputTaskValue !== '') {
+      this.setState({tasks: [...this.state.tasks, inputTaskValue]});
     } 
-    
-    inputTask.value = '';
+  
+    this.state.inputTaskValue = '';
 
   }
 
@@ -30,8 +28,8 @@ class ToDoList extends React.PureComponent  {
    
     return (
       <>
-        <InputTask/>
-        <AddButton onClick={this.addTask}/>
+        <input className="inputTask" onChange={this.setTaskValue} value={this.state.inputTaskValue}></input>
+        <button className="addButton" onClick={this.addTask}>Add task</button>
         <TasksTable tasks={this.state.tasks}/>
       </>
     );

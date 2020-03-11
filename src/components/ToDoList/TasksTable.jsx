@@ -14,7 +14,7 @@ const TasksTable = ({tasks}) => {
 }
 
 TasksTable.propTypes = {
-    tasks: PropTypes.array
+    tasks: PropTypes.array.isRequired
 }
 
 export default TasksTable;
