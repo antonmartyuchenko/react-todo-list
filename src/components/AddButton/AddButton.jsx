@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const AddButton = ({onClick}) => {
 
   return (
-      <button onClick={onClick}>Add +1</button>
+      <button className="addButton" onClick={onClick}>Add task</button>
     )
 
 }

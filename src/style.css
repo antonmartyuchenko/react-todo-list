@@ -1,14 +1,14 @@
-#inputTask {
+.inputTask {
     width: 250px;
 }
 
-#addButton {
+.addButton {
     color: green;
     width: 100px;
     cursor: pointer;
 }
 
-#tableTasks {
+.tasksTable {
     margin: 10px 0px;
     border-collapse: collapse;
 }
