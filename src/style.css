@@ -1,14 +1,14 @@
-#inputTask {
+.inputTask {
     width: 250px;
 }
 
-#addButton {
+.addButton {
     color: green;
     width: 100px;
     cursor: pointer;
 }
 
-#tableTasks {
+.tasksTable {
     margin: 10px 0px;
     border-collapse: collapse;
 }
@@ -18,4 +18,13 @@
     border-width: 1px;
     width: 245px;
     cursor: pointer;
+}
+
+.red-text {
+    color: red;
+}
+
+
+.counter {
+    margin: 5px;
 }
