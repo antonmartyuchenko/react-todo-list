@@ -11,11 +11,9 @@ class ToDoList extends React.PureComponent {
   }
 
   componentDidMount() {
-    this.setState({ tasks: [{id: 1, message: 'test'}] }); 
-    /*axios.get(`http://127.0.0.1:3001/api/tasks`).then(res => {
-    console.log(res.data);  
-    this.setState({ tasks: res.data });
-    })*/
+    axios.get(`http://127.0.0.1:3001/api/tasks`).then(res => {
+      this.setState({ tasks: res.data });
+    })
   }
 
   setTaskValue = e => {
@@ -26,26 +24,24 @@ class ToDoList extends React.PureComponent {
     const { inputTaskValue } = this.state;
 
     if (inputTaskValue !== '') {
-      
-
       axios.post(`http://127.0.0.1:3001/api/tasks`, { message: inputTaskValue }).then(res => {
-        this.setState({ tasks: [...this.state.tasks, res.data] });
+        this.setState({ tasks: [...this.state.tasks, res.data], inputTaskValue: '' });
       })
-
-      this.setState({ inputTaskValue: '' });
     }
   }
 
-  deleteMessage = e => {
-    console.log(e);
+  deleteMessage = (id) => {
+    axios.delete(`http://127.0.0.1:3001/api/tasks/${id}`).then(res => {
+      this.setState({ tasks: this.state.tasks.filter(item => item.id !== id) });
+    })
   }
 
   render() {
     return (
       <div id="div">
-        <InputGroup onChange={this.setTaskValue} value={this.state.inputTaskValue}>
+        <InputGroup>
           <FormControl
-            placeholder="Message"
+            placeholder="Message" onChange={this.setTaskValue} value={this.state.inputTaskValue}
           />
           <InputGroup.Append>
             <Button variant="primary" onClick={this.addTask}>Add task</Button>
