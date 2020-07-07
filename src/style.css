@@ -2,15 +2,18 @@
     width: 250px;
 }
 
+.glyphicon {
+    font-size: 10px;
+}
+
 .addButton {
     color: green;
     width: 100px;
     cursor: pointer;
 }
 
-.tasksTable {
-    margin: 10px 0px;
-    border-collapse: collapse;
+#tasksTable {
+    margin-top: 10px;
 }
 
 .td {
@@ -27,4 +30,12 @@
 
 .counter {
     margin: 5px;
+}
+
+#div {
+    width: 600px;  
+}
+
+.hidden {
+    display: none;
 }
