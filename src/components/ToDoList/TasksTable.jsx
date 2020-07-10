@@ -2,20 +2,32 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Table } from 'react-bootstrap';
 
-const TasksTable = ({ deleteMessage, tasks }) => {
+
+const TasksTable = ({ onSetEditMessage, onSetEditMode, onEditMessage, onDeleteMessage, tasks, editMessage }) => {
     return (
         <div>
             <Table id="tasksTable" variant="dark">
                 <tbody>
                     <tr><th>Message</th></tr>
                     {tasks.map((task) => {
-                        const { id, message } = task;
+                        const { id, message, editMode } = task;
+                        let fragment;
 
-                        return <tr key={id}>
-                            <td className="td">{message}
-                                <span className="glyphicon glyphicon-remove" onClick={() => deleteMessage(id)}></span>
-                            </td>
-                        </tr>
+                        if (editMode) {
+                            fragment = <>
+                                <input className="editMessage" type="text" onChange={(e) => onSetEditMessage(e)} value={editMessage}></input>         
+                                <span className="glyphicon glyphicon-ok" onClick={() => onEditMessage(id)}></span>
+                                <span className="glyphicon glyphicon-remove" onClick={() => onSetEditMode(id)}></span>
+                            </>
+                        } else {
+                            fragment = <>
+                                <span>{message}</span>
+                                <span className="glyphicon glyphicon-pencil" onClick={() => onSetEditMode(id)}></span>
+                                <span className="glyphicon glyphicon-remove" onClick={() => onDeleteMessage(id)}></span>
+                            </>
+                        }
+
+                        return <tr key={id}><td className="td">{fragment}</td></tr>
                     })}
                 </tbody>
             </Table>

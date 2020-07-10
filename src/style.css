@@ -4,6 +4,11 @@
 
 .glyphicon {
     font-size: 10px;
+    margin: 5px;
+}
+
+.editMessage {
+    color: black;
 }
 
 .addButton {
