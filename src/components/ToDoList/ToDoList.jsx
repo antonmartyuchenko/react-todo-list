@@ -6,6 +6,7 @@ import { Button, InputGroup, FormControl } from 'react-bootstrap';
 class ToDoList extends React.PureComponent {
 
   state = {
+    inputEditMessage: '',
     inputTaskValue: '',
     tasks: []
   }
@@ -16,21 +17,61 @@ class ToDoList extends React.PureComponent {
     })
   }
 
-  setTaskValue = e => {
+  handleSetTaskValue = e => {
     this.setState({ inputTaskValue: e.target.value });
   }
 
-  addTask = () => {
+  handleSetEditMessage = e => {
+    this.setState({ inputEditMessage: e.target.value });
+  }
+
+  handleSetEditMode = id => {
+    let editMessage = '';
+
+    this.setState({
+      tasks: this.state.tasks.map(task => {
+        if (id === task.id) {
+          task.editMode = !task.editMode;
+          if (task.editMode) { editMessage = task.message }
+        }
+
+        return task
+      }), inputEditMessage: editMessage
+    });
+  }
+
+  handleAddTask = () => {
     const { inputTaskValue } = this.state;
 
-    if (inputTaskValue !== '') {
+    if (inputTaskValue) {
       axios.post(`http://127.0.0.1:3001/api/tasks`, { message: inputTaskValue }).then(res => {
         this.setState({ tasks: [...this.state.tasks, res.data], inputTaskValue: '' });
       })
     }
   }
 
-  deleteMessage = (id) => {
+  handleEditMessage = (id) => {
+    const { inputEditMessage } = this.state;
+
+    if (inputEditMessage) {
+      axios.put(`http://127.0.0.1:3001/api/tasks/${id}`, { message: inputEditMessage }).then(res => {
+        const { id, message } = res.data;
+
+        this.setState({
+          tasks: this.state.tasks.map(task => {
+            if (id === task.id) {
+              task.message = message;
+              task.editMode = false;
+            }
+
+            return task;
+          })
+        });
+      })
+    }
+  }
+
+  handleDeleteMessage = (id) => {
     axios.delete(`http://127.0.0.1:3001/api/tasks/${id}`).then(res => {
       this.setState({ tasks: this.state.tasks.filter(item => item.id !== id) });
     })
@@ -41,13 +82,19 @@ class ToDoList extends React.PureComponent {
       <div id="div">
         <InputGroup>
           <FormControl
-            placeholder="Message" onChange={this.setTaskValue} value={this.state.inputTaskValue}
+            placeholder="Message" onChange={this.handleSetTaskValue} value={this.state.inputTaskValue}
           />
           <InputGroup.Append>
-            <Button variant="primary" onClick={this.addTask}>Add task</Button>
+            <Button variant="primary" onClick={this.handleAddTask}>Add task</Button>
           </InputGroup.Append>
         </InputGroup>
-        <TasksTable deleteMessage={this.deleteMessage} tasks={this.state.tasks} />
+        <TasksTable onSetEditMessage={this.handleSetEditMessage}
+          onSetEditMode={this.handleSetEditMode}
+          onEditMessage={this.handleEditMessage}
+          onDeleteMessage={this.handleDeleteMessage}
+          tasks={this.state.tasks}
+          editMessage={this.state.inputEditMessage}
+        />
       </div>
     );
   }
