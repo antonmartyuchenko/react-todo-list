@@ -11,23 +11,23 @@ const TasksTable = ({ onSetEditMessage, onSetEditMode, onEditMessage, onDeleteMe
                     <tr><th>Message</th></tr>
                     {tasks.map((task) => {
                         const { id, message, editMode } = task;
-                        let fragment;
+                        let messageAction;
 
                         if (editMode) {
-                            fragment = <>
+                            messageAction = <>
                                 <input className="editMessage" type="text" onChange={(e) => onSetEditMessage(e)} value={editMessage}></input>         
                                 <span className="glyphicon glyphicon-ok" onClick={() => onEditMessage(id)}></span>
                                 <span className="glyphicon glyphicon-remove" onClick={() => onSetEditMode(id)}></span>
                             </>
                         } else {
-                            fragment = <>
+                            messageAction = <>
                                 <span>{message}</span>
                                 <span className="glyphicon glyphicon-pencil" onClick={() => onSetEditMode(id)}></span>
                                 <span className="glyphicon glyphicon-remove" onClick={() => onDeleteMessage(id)}></span>
                             </>
                         }
 
-                        return <tr key={id}><td className="td">{fragment}</td></tr>
+                        return <tr key={id}><td className="td">{messageAction}</td></tr>
                     })}
                 </tbody>
             </Table>

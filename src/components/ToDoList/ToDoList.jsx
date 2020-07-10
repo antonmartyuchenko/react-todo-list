@@ -13,12 +13,7 @@ class ToDoList extends React.PureComponent {
 
   componentDidMount() {
     axios.get(`http://127.0.0.1:3001/api/tasks`).then(res => {
-      this.setState({
-        tasks: res.data.map(task => {
-          task.editMode = false;
-          return task
-        })
-      });
+      this.setState({ tasks: res.data });
     })
   }
 
@@ -31,29 +26,25 @@ class ToDoList extends React.PureComponent {
   }
 
   handleSetEditMode = id => {
+    let editMessage = '';
+
     this.setState({
       tasks: this.state.tasks.map(task => {
         if (id === task.id) {
           task.editMode = !task.editMode;
-
-          if (task.editMode) {
-            this.setState({ inputEditMessage: task.message });
-          } else {
-            this.setState({ inputEditMessage: '' });
-          }
+          if (task.editMode) { editMessage = task.message }
         }
 
         return task
-      })
+      }), inputEditMessage: editMessage
     });
   }
 
   handleAddTask = () => {
     const { inputTaskValue } = this.state;
 
-    if (inputTaskValue !== '') {
+    if (inputTaskValue) {
       axios.post(`http://127.0.0.1:3001/api/tasks`, { message: inputTaskValue }).then(res => {
-        res.data.editMode = false;
         this.setState({ tasks: [...this.state.tasks, res.data], inputTaskValue: '' });
       })
     }
@@ -62,10 +53,10 @@ class ToDoList extends React.PureComponent {
   handleEditMessage = (id) => {
     const { inputEditMessage } = this.state;
 
-    if (inputEditMessage !== '') {
+    if (inputEditMessage) {
       axios.put(`http://127.0.0.1:3001/api/tasks/${id}`, { message: inputEditMessage }).then(res => {
         const { id, message } = res.data;
-        
+
         this.setState({
           tasks: this.state.tasks.map(task => {
             if (id === task.id) {
